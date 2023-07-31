@@ -4,28 +4,6 @@ var input = document.getElementById('input');
 
 renderTodoList();
 
-// submit.addEventListener('click', function() {
-//     if(input.value != '') {
-//         let todoContent = input.value;
-//         fetch('/todo', {
-//             method: 'post',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({todoContent})
-//         }).then(function(response) {
-//             if(response.ok) {
-//                 input.value = '';
-//                 renderTodoList();
-//             } else {
-//                 throw new Error(response.message);
-//             }
-//         });
-//     }
-// });
-
-
-
 function renderTodoList() {
     fetch('/getTodos', {
         method: 'get'
@@ -107,7 +85,7 @@ function renderTodoItem(todo, id) {
         todoImageDiv.appendChild(imageElement);
     }
     
-    //todoContentDiv.appendChild(imageElement);
+
     todoItem.appendChild(todoContentDiv);
     todoItem.appendChild(todoImageDiv);
     todoItem.appendChild(todoActionsDiv);
