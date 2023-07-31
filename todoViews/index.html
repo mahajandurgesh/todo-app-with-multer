@@ -18,8 +18,11 @@
         <div class="right">
             <h2>Add Todo</h2>
             <div id="add-todo">
-                <input type="text" id="input" placeholder="Enter Todo">
-                <input type="submit" id="submit" value="Add Todo">
+                <form action="/todo" method="post" enctype="multipart/form-data">
+                    <input type="text" name="input" id="input" placeholder="Enter Todo">
+                    <input type="file" name="todopic" id="todopic">
+                    <input type="submit" id="submit" value="Add Todo">
+                </form>
             </div>
         </div>
     </div>

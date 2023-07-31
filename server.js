@@ -1,8 +1,20 @@
 const express = require('express');
 const fs = require('fs');
+const multer  = require('multer');
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './public/');
+    },
+    filename: function(req, file, cb) {
+        cb(null, Date.now() + '-' + Math.round(Math.random() * 10000) + '.jpg');
+    }
+});
+const upload = multer({ storage: storage })
 const app = express();
 
 app.use(express.json());
+//app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/todoViews/index.html');
@@ -26,15 +38,21 @@ app.get('/getTodos', function(req, res) {
     });
 });
 
-app.post('/todo', function(req, res) {
-    let todoContent = req.body.todoContent;
+app.post('/todo', upload.single('todopic'), function(req, res) {
+    let todoContent = req.body.input;
+    let todoPicture;
+    if(req.file) {
+        todoPicture = req.file.filename;
+    }
+    
     let todoCompleted = false;
-    let todo = {todoContent, todoCompleted};
+    
+    let todo = {todoContent, todoPicture, todoCompleted};
     appendTodoToFile(todo, function(err){
         if(err){
             res.status(500).send('Error writing to file');
         } else {
-            res.status(200).send('Success');
+            res.status(200).redirect('/');
         }
     });
 });

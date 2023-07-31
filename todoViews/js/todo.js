@@ -4,25 +4,25 @@ var input = document.getElementById('input');
 
 renderTodoList();
 
-submit.addEventListener('click', function() {
-    if(input.value != '') {
-        let todoContent = input.value;
-        fetch('/todo', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({todoContent})
-        }).then(function(response) {
-            if(response.ok) {
-                input.value = '';
-                renderTodoList();
-            } else {
-                throw new Error(response.message);
-            }
-        });
-    }
-});
+// submit.addEventListener('click', function() {
+//     if(input.value != '') {
+//         let todoContent = input.value;
+//         fetch('/todo', {
+//             method: 'post',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({todoContent})
+//         }).then(function(response) {
+//             if(response.ok) {
+//                 input.value = '';
+//                 renderTodoList();
+//             } else {
+//                 throw new Error(response.message);
+//             }
+//         });
+//     }
+// });
 
 
 
@@ -48,6 +48,7 @@ function renderTodoItem(todo, id) {
     let todoList = document.getElementById('todo-list');
     let todoItem = document.createElement('li');
     let todoContentDiv = document.createElement('div');
+    let todoImageDiv = document.createElement('div');
     let todoActionsDiv = document.createElement('div');
     let todoCheckbox = document.createElement('input');
     let todoDeleteButton = document.createElement('button');
@@ -89,13 +90,26 @@ function renderTodoItem(todo, id) {
 
     if(todo.todoCompleted) {
         todoContentDiv.className = 'todo-content-completed';
+        todoImageDiv.className = 'todo-img-completed';
         todoCheckbox.checked = true;
     }
     else {
         todoContentDiv.className = 'todo-content-incomplete';
+        todoImageDiv.className = 'todo-img-incomplete';
     }
     todoContentDiv.innerHTML = todo.todoContent;
+    if(todo.todoPicture){
+        const todoPicture = todo.todoPicture;
+        const imageElement = document.createElement('img');
+        imageElement.src = todoPicture;
+        imageElement.width = 50;
+        imageElement.height = 50;
+        todoImageDiv.appendChild(imageElement);
+    }
+    
+    //todoContentDiv.appendChild(imageElement);
     todoItem.appendChild(todoContentDiv);
+    todoItem.appendChild(todoImageDiv);
     todoItem.appendChild(todoActionsDiv);
 
     todoList.appendChild(todoItem);

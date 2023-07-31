@@ -13,6 +13,7 @@ header{
     display: flex;
     align-items: center;
     height: 70vh;
+    flex-direction: row;
 }
 .left{
     width: 60%;
@@ -26,7 +27,7 @@ header{
 .left ul{
     list-style: none;
     height: 90%;
-    overflow: auto;
+    overflow-y: auto;
 }
 .left ul li{
     display: flex;
@@ -48,8 +49,12 @@ header{
     overflow-wrap: break-word;
 }
 
+.left ul li .todo-img-completed img{
+    opacity: 0.5;
+}
+
 .left ul li .todo-actions{
-    width: 20%;
+    width: auto;
     display: flex;
     justify-content: space-between;
     padding-left: 10px;
@@ -69,6 +74,10 @@ header{
 .right #add-todo input[type="text"]{
     padding: 10px;
     margin-bottom: 10px;
+    width: 100%;
+}
+.right #add-todo input[type="file"]{
+    display: block;
 }
 .right #add-todo input[type="submit"]{
     padding: 10px;
@@ -79,6 +88,7 @@ header{
 }
 .delete-todo{
     padding: 5px;
+    margin: 2px;
     background-color: rgb(205, 15, 15);
     color: #fff;
     border: none;
@@ -88,3 +98,23 @@ h2{
     text-align: center;
     margin-bottom: 10px;
 }
+
+form{
+    text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+      flex-direction: column; 
+    }
+
+    .left{
+        width: 100%;
+        margin: 0;
+    }
+
+    .right{
+        width: 100%;
+        margin: 0;
+    }
+  }
